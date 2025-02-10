@@ -12,7 +12,8 @@
 <body>
     <h1>Welcome!</h1>
     <p>Choose one of the following links: </p>
-    <a href="./location/">Location</a>
+    <a href="./location/">Location</a><br>
+    <a href="./employee/">Employee</a><br>
 
 
 </body>
