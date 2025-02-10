@@ -1,5 +1,18 @@
 <?php require_once("../database.php");
 
+//if user doesnt input all the necessary field prompt them
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (
+        empty($_POST["type"]) || empty($_POST["name"]) || empty($_POST["address"]) ||
+        empty($_POST["city"]) || empty($_POST["province"]) || empty($_POST["postal_code"]) ||
+        empty($_POST["phone_number"]) || empty($_POST["maximum_capacity"])
+    ) {
+        echo "Missing fields, Please fill in all required fields!";
+        echo "<a href='javascript:history.back()' style='color: blue; text-decoration: underline;'>Go Back</a></br>";
+
+    }
+}
+
 //check if user inputed all the field
 if (isset($_POST["type"]) && isset($_POST["name"]) && isset($_POST["address"]) && isset($_POST["city"]) && isset($_POST["province"]) && isset($_POST["postal_code"]) && isset($_POST["phone_number"]) && isset($_POST["maximum_capacity"]) && isset($_POST["postal_code"])) {
 
@@ -15,7 +28,6 @@ if (isset($_POST["type"]) && isset($_POST["name"]) && isset($_POST["address"]) &
     $location->bindParam(":province", $_POST["province"]);
     $location->bindParam(":postal_code", $_POST["postal_code"]);
     $location->bindParam(":phone_number", $_POST["phone_number"]);
-    $location->bindParam(":postal_code", $_POST["postal_code"]);
     $location->bindParam(":web_address", $_POST["web_address"]);
     $location->bindParam(":maximum_capacity", $_POST["maximum_capacity"]);
 
@@ -25,6 +37,7 @@ if (isset($_POST["type"]) && isset($_POST["name"]) && isset($_POST["address"]) &
         exit();
     }
 }
+
 
 ?>
 
