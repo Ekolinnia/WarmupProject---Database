@@ -15,24 +15,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 //check if user inputed all the field
-if (isset($_POST["type"]) && isset($_POST["name"]) && isset($_POST["address"]) && isset($_POST["city"]) && isset($_POST["province"]) && isset($_POST["postal_code"]) && isset($_POST["phone_number"]) && isset($_POST["maximum_capacity"]) && isset($_POST["postal_code"])) {
+if (
+    isset($_POST["LocationID"]) && isset($_POST["first_name"]) && isset($_POST["last_name"])
+    && isset($_POST["date_of_birth"]) && isset($_POST["social_security_number"]) && isset($_POST["medical_card_number"])
+    && isset($_POST["phone_number"]) && isset($_POST["address"]) && isset($_POST["city"])
+    && isset($_POST["province"]) && isset($_POST["postal_code"]) && isset($_POST["email_address"]) && isset($_POST["role"]) && isset($_POST["mandate"])
+) {
 
-    $location = $conn->prepare("INSERT INTO Location 
-    (type, name, address, city, province, postal_code, phone_number, web_address, maximum_capacity)
-    VALUES (:type, :name, :address, :city, :province, :postal_code, :phone_number, :web_address, :maximum_capacity)");
+    $location = $conn->prepare("INSERT INTO Employee 
+    (LocationID, first_name, last_name, date_of_birth, social_security_number, 
+    medical_card_number, phone_number, phone_number, address, city, province, postal_code,email_address,role, mandate )
+    VALUES (:LocationID, :first_name, :last_name, :date_of_birth, :social_security_number, 
+    :medical_card_number, :phone_number, :phone_number, :address, :city, :province, :postal_code,:email_address,:role, :mandate )");
 
 
-    $location->bindParam(":type", $_POST["type"]);
-    $location->bindParam(":name", $_POST["name"]);
+    $location->bindParam(":LocationID", $_POST["LocationID"]);
+    $location->bindParam(":first_name", $_POST["first_name"]);
+    $location->bindParam(":last_name", $_POST["last_name"]);
+    $location->bindParam(":date_of_birth", $_POST["date_of_birth"]);
+    $location->bindParam(":social_security_number", $_POST["social_security_number"]);
+    $location->bindParam(":medical_card_number", $_POST["medical_card_number"]);
+    $location->bindParam(":phone_number", $_POST["phone_number"]);
     $location->bindParam(":address", $_POST["address"]);
     $location->bindParam(":city", $_POST["city"]);
     $location->bindParam(":province", $_POST["province"]);
     $location->bindParam(":postal_code", $_POST["postal_code"]);
-    $location->bindParam(":phone_number", $_POST["phone_number"]);
-    $location->bindParam(":web_address", $_POST["web_address"]);
-    $location->bindParam(":maximum_capacity", $_POST["maximum_capacity"]);
+    $location->bindParam(":email_address", $_POST["email_address"]);
+    $location->bindParam(":role", $_POST["role"]);
+    $location->bindParam(":mandate", $_POST["mandate"]);
 
-    //if successful, bring back the user to list of book
+
+
+    //if successful, bring back the user to list of employee
     if ($location->execute()) {
         header("Location: .");
         exit();
@@ -55,15 +69,27 @@ if (isset($_POST["type"]) && isset($_POST["name"]) && isset($_POST["address"]) &
 <body>
     <!-- Create a form to add to the database  -->
     <form action="./create.php" method="post">
-        <label for="type">Type</label><br>
 
-        <select name="type" id="type"><br>
-            <option value="Head">Head</option>
-            <option value="Branch">Branch</option>
-        </select><br>
+        <label for="LocationID">LocationID</label><br>
+        <input type="number" name="LocationID" id="LocationID"><br>
 
-        <label for="name">Name</label><br>
-        <input type="text" name="name" id="name"><br>
+        <label for="first_name">First Name</label><br>
+        <input type="text" name="first_name" id="first_name"><br>
+
+        <label for="last_name">Last Name</label><br>
+        <input type="text" name="last_name" id="last_name"><br>
+
+        <label for="date_of_birth">Date of Birth</label><br>
+        <input type="date" name="date_of_birth" id="date_of_birth"><br>
+
+        <label for="social_security_number"> SSN </label><br>
+        <input type="text" name="social_security_number" id="social_security_number"><br>
+
+        <label for="medical_card_number">Medical card Number</label><br>
+        <input type="text" name="medical_card_number" id="medical_card_number"><br>
+
+        <label for="phone_number">Phone number</label><br>
+        <input type="number" name="phone_number" id="phone_number"><br>
 
         <label for="address">Address</label><br>
         <input type="text" name="address" id="address"><br>
@@ -77,17 +103,33 @@ if (isset($_POST["type"]) && isset($_POST["name"]) && isset($_POST["address"]) &
         <label for="postal_code">Postal Code</label><br>
         <input type="text" name="postal_code" id="postal_code"><br>
 
+        <label for="email_address">Email Address</label><br>
+        <input type="text" name="email_address" id="email_address"><br>
 
-        <label for="phone_number">Phone Number</label><br>
-        <input type="number" name="phone_number" id="phone_number"><br>
+        <label for="type">Type</label><br>
 
-        <label for="web_address">Web Address</label><br>
-        <input type="text" name="web_address" id="web_address"><br>
+        <select name="role" id="role"><br>
+            <option value="General Manager">General Manager</option>
+            <option value="Deputy Manager">Deputy Manager</option>
+            <option value="Treasurer">Treasurer</option>
+            <option value="Secretary">Secretary</option>
+            <option value="Administrator">Administrator</option>
+            <option value="Captain">Captain</option>
+            <option value="Coach">Coach</option>
+            <option value="Assistant Coach">Assistant Coach</option>
+            <option value="Other">Other</option>
 
-        <label for="maximum_capacity">Maximum Capacity</label><br>
-        <input type="number" name="maximum_capacity" id="maximum_capacity"><br>
 
-        <button type="submit">Add Location</button>
+        </select><br> <label for="type">Type</label><br>
+
+        <select name="mandate" id="mandate"><br>
+            <option value="Salaried">Salaried</option>
+            <option value="Volunteer">Volunteer</option>
+        </select><br>
+
+
+
+        <button type="submit">Add Employee</button>
 
 
     </form>

@@ -51,6 +51,7 @@ $statement->execute();
                     <td><?= $row["social_security_number"] ?> </td>
                     <td><?= $row["medical_card_number"] ?> </td>
                     <td><?= $row["phone_number"] ?> </td>
+                    <td><?= $row["address"] ?> </td>
                     <td><?= $row["city"] ?> </td>
                     <td><?= $row["province"] ?> </td>
                     <td><?= $row["postal_code"] ?> </td>
