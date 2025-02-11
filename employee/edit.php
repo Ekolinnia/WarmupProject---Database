@@ -64,7 +64,7 @@ if (
 
 
     //if successful, bring back the user to list of employee
-    if ($location->execute()) {
+    if ($updateemployee->execute()) {
         header("Location: .");
         exit();
     }
