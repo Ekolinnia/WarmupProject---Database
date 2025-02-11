@@ -9,7 +9,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         || empty($_POST["email_address"]) || empty($_POST["role"] || empty($_POST["mandate"]))
     ) {
         echo "Missing fields, Please fill in all required fields!";
-        echo "<a href='javascript:history.back()' style='color: blue; text-decoration: underline;'>Go Back</a></br>";
 
     }
 }
@@ -20,37 +19,47 @@ if (
     && isset($_POST["date_of_birth"]) && isset($_POST["social_security_number"]) && isset($_POST["medical_card_number"])
     && isset($_POST["phone_number"]) && isset($_POST["address"]) && isset($_POST["city"])
     && isset($_POST["province"]) && isset($_POST["postal_code"]) && isset($_POST["email_address"]) && isset($_POST["role"]) && isset($_POST["mandate"])
-) {
+)
+    try {
 
-    $location = $conn->prepare("INSERT INTO Employee 
+        $location = $conn->prepare("INSERT INTO Employee 
     (LocationID, first_name, last_name, date_of_birth, social_security_number, 
     medical_card_number, phone_number, address, city, province, postal_code, email_address, role, mandate)
     VALUES (:LocationID, :first_name, :last_name, :date_of_birth, :social_security_number, 
     :medical_card_number, :phone_number, :address, :city, :province, :postal_code, :email_address, :role, :mandate)");
 
-    $location->bindParam(":LocationID", $_POST["LocationID"]);
-    $location->bindParam(":first_name", $_POST["first_name"]);
-    $location->bindParam(":last_name", $_POST["last_name"]);
-    $location->bindParam(":date_of_birth", $_POST["date_of_birth"]);
-    $location->bindParam(":social_security_number", $_POST["social_security_number"]);
-    $location->bindParam(":medical_card_number", $_POST["medical_card_number"]);
-    $location->bindParam(":phone_number", $_POST["phone_number"]);
-    $location->bindParam(":address", $_POST["address"]);
-    $location->bindParam(":city", $_POST["city"]);
-    $location->bindParam(":province", $_POST["province"]);
-    $location->bindParam(":postal_code", $_POST["postal_code"]);
-    $location->bindParam(":email_address", $_POST["email_address"]);
-    $location->bindParam(":role", $_POST["role"]);
-    $location->bindParam(":mandate", $_POST["mandate"]);
+        $location->bindParam(":LocationID", $_POST["LocationID"]);
+        $location->bindParam(":first_name", $_POST["first_name"]);
+        $location->bindParam(":last_name", $_POST["last_name"]);
+        $location->bindParam(":date_of_birth", $_POST["date_of_birth"]);
+        $location->bindParam(":social_security_number", $_POST["social_security_number"]);
+        $location->bindParam(":medical_card_number", $_POST["medical_card_number"]);
+        $location->bindParam(":phone_number", $_POST["phone_number"]);
+        $location->bindParam(":address", $_POST["address"]);
+        $location->bindParam(":city", $_POST["city"]);
+        $location->bindParam(":province", $_POST["province"]);
+        $location->bindParam(":postal_code", $_POST["postal_code"]);
+        $location->bindParam(":email_address", $_POST["email_address"]);
+        $location->bindParam(":role", $_POST["role"]);
+        $location->bindParam(":mandate", $_POST["mandate"]);
 
 
 
-    //if successful, bring back the user to list of employee
-    if ($location->execute()) {
-        header("Location: .");
-        exit();
+        //if successful, bring back the user to list of employee
+        if ($location->execute()) {
+            header("Location: .");
+            exit();
+        }
+    } catch (PDOException $e) {
+        if ($e->getCode() == 23000) {  // 23000 = code unique constraint violation
+            echo "<script>alert('This Employee already exists! Matching SIN found in database');</script>";
+            echo "<script>window.location.href = './create.php';</script>";
+        } else {
+            // Handle other errors (e.g., database connection issues)
+            echo "Database error: " . $e->getMessage();
+        }
     }
-}
+
 
 
 ?>
@@ -117,7 +126,6 @@ if (
             <option value="Coach">Coach</option>
             <option value="Assistant Coach">Assistant Coach</option>
             <option value="Other">Other</option>
-
 
         </select><br> <label for="type">Type</label><br>
 

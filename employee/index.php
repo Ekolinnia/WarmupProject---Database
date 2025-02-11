@@ -55,8 +55,8 @@ $statement->execute();
                     <td><?= $row["city"] ?> </td>
                     <td><?= $row["province"] ?> </td>
                     <td><?= $row["postal_code"] ?> </td>
-                    <td><?= $row["role"] ?> </td>
                     <td><?= $row["email_address"] ?> </td>
+                    <td><?= $row["role"] ?> </td>
                     <td><?= $row["mandate"] ?> </td>
                     <!-- Actions u can apply on the tuples -->
                     <td> <a href="./delete.php?EmployeeID=<?= $row["EmployeeID"] ?>">Delete</a>

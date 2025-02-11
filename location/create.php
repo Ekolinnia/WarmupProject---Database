@@ -14,27 +14,43 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 //check if user inputed all the field
+//ensure that added
 if (isset($_POST["type"]) && isset($_POST["name"]) && isset($_POST["address"]) && isset($_POST["city"]) && isset($_POST["province"]) && isset($_POST["postal_code"]) && isset($_POST["phone_number"]) && isset($_POST["maximum_capacity"]) && isset($_POST["postal_code"])) {
 
-    $location = $conn->prepare("INSERT INTO Location 
+    try {
+        //will only add if unique name (set in databse)
+        $location = $conn->prepare("INSERT INTO Location 
     (type, name, address, city, province, postal_code, phone_number, web_address, maximum_capacity)
-    VALUES (:type, :name, :address, :city, :province, :postal_code, :phone_number, :web_address, :maximum_capacity)");
+    VALUES (:type, :name, :address, :city, :province, :postal_code, :phone_number, :web_address, :maximum_capacity); ");
 
 
-    $location->bindParam(":type", $_POST["type"]);
-    $location->bindParam(":name", $_POST["name"]);
-    $location->bindParam(":address", $_POST["address"]);
-    $location->bindParam(":city", $_POST["city"]);
-    $location->bindParam(":province", $_POST["province"]);
-    $location->bindParam(":postal_code", $_POST["postal_code"]);
-    $location->bindParam(":phone_number", $_POST["phone_number"]);
-    $location->bindParam(":web_address", $_POST["web_address"]);
-    $location->bindParam(":maximum_capacity", $_POST["maximum_capacity"]);
+        $location->bindParam(":type", $_POST["type"]);
+        $location->bindParam(":name", $_POST["name"]);
+        $location->bindParam(":address", $_POST["address"]);
+        $location->bindParam(":city", $_POST["city"]);
+        $location->bindParam(":province", $_POST["province"]);
+        $location->bindParam(":postal_code", $_POST["postal_code"]);
+        $location->bindParam(":phone_number", $_POST["phone_number"]);
+        $location->bindParam(":web_address", $_POST["web_address"]);
+        $location->bindParam(":maximum_capacity", $_POST["maximum_capacity"]);
 
-    //if successful, bring back the user to list of book
-    if ($location->execute()) {
-        header("Location: .");
-        exit();
+        //if successful, bring back the user to list of book
+        if ($location->execute()) {
+            header("Location: .");
+            exit();
+            //if queury not successfull ==already exist
+        } else {
+            echo "An error occured";
+
+        }
+    } catch (PDOException $e) {
+        if ($e->getCode() == 23000) {  // 23000 = code unique constraint violation
+            echo "<script>alert('This location already exists!');</script>";
+            echo "<script>window.location.href = './create.php';</script>";
+        } else {
+            // Handle other errors (e.g., database connection issues)
+            echo "Database error: " . $e->getMessage();
+        }
     }
 }
 
