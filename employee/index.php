@@ -59,9 +59,9 @@ $statement->execute();
                     <td><?= $row["email_address"] ?> </td>
                     <td><?= $row["mandate"] ?> </td>
                     <!-- Actions u can apply on the tuples -->
-                    <td> <a href="./delete.php?LocationID=<?= $row["LocationID"] ?>">Delete</a>
-                        <a href="./edit.php?LocationID=<?= $row["LocationID"] ?>">Edit</a>
-                        <a href="./show.php?LocationID=<?= $row["LocationID"] ?>">Show</a>
+                    <td> <a href="./delete.php?EmployeeID=<?= $row["EmployeeID"] ?>">Delete</a>
+                        <a href="./edit.php?EmployeeID=<?= $row["EmployeeID"] ?>">Edit</a>
+                        <a href="./show.php?EmployeeID=<?= $row["EmployeeID"] ?>">Show History</a>
                     </td>
                 </tr>
 

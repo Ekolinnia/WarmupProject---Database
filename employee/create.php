@@ -24,10 +24,9 @@ if (
 
     $location = $conn->prepare("INSERT INTO Employee 
     (LocationID, first_name, last_name, date_of_birth, social_security_number, 
-    medical_card_number, phone_number, phone_number, address, city, province, postal_code,email_address,role, mandate )
+    medical_card_number, phone_number, address, city, province, postal_code, email_address, role, mandate)
     VALUES (:LocationID, :first_name, :last_name, :date_of_birth, :social_security_number, 
-    :medical_card_number, :phone_number, :phone_number, :address, :city, :province, :postal_code,:email_address,:role, :mandate )");
-
+    :medical_card_number, :phone_number, :address, :city, :province, :postal_code, :email_address, :role, :mandate)");
 
     $location->bindParam(":LocationID", $_POST["LocationID"]);
     $location->bindParam(":first_name", $_POST["first_name"]);
@@ -62,9 +61,9 @@ if (
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Location</title>
+    <title>Add Employee</title>
 </head>
-<h1>Add Location</h1>
+<h1>Add Employee</h1>
 
 <body>
     <!-- Create a form to add to the database  -->
@@ -89,7 +88,7 @@ if (
         <input type="text" name="medical_card_number" id="medical_card_number"><br>
 
         <label for="phone_number">Phone number</label><br>
-        <input type="number" name="phone_number" id="phone_number"><br>
+        <input type="text" name="phone_number" id="phone_number"><br>
 
         <label for="address">Address</label><br>
         <input type="text" name="address" id="address"><br>
@@ -106,7 +105,7 @@ if (
         <label for="email_address">Email Address</label><br>
         <input type="text" name="email_address" id="email_address"><br>
 
-        <label for="type">Type</label><br>
+        <label for="type">Role</label><br>
 
         <select name="role" id="role"><br>
             <option value="General Manager">General Manager</option>
