@@ -154,7 +154,7 @@ if (
 
     </form>
     <!-- link to previous page -->
-    <a href="./">Back to Location list</a>
+    <a href="./">Back to Employee list</a>
 
 
 
