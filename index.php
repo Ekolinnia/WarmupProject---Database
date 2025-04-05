@@ -15,6 +15,7 @@
     <a href="./location/">Location</a><br>
     <a href="./employee/">Employee</a><br>
     <a href="./Family_member/">Family Member</a><br>
+    <a href="./payment/">Payments</a><br>
 
 
 
