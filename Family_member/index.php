@@ -1,9 +1,9 @@
-<?php require_once("../database.php");
+<?php 
+require_once("../database.php");
 
 // Fetch all rows from the Family_member table
 $statement = $conn->prepare("SELECT * FROM Family_member");
 $statement->execute();
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -38,25 +38,28 @@ $statement->execute();
         <tbody>
             <?php while ($row = $statement->fetch(PDO::FETCH_ASSOC)) { ?>
                 <tr>
-                    <td><?= $row["famID"] ?></td>
-                    <td><?= $row["first_name"] ?></td>
-                    <td><?= $row["last_name"] ?></td>
-                    <td><?= $row["date_of_birth"] ?></td>
-                    <td><?= $row["social_security_number"] ?></td>
-                    <td><?= $row["medical_card_number"] ?></td>
-                    <td><?= $row["phone_number"] ?></td>
-                    <td><?= $row["address"] ?></td>
-                    <td><?= $row["city"] ?></td>
-                    <td><?= $row["province"] ?></td>
-                    <td><?= $row["postal_code"] ?></td>
-                    <td><?= $row["email_address"] ?></td>
-                    <td><?= $row["location_id"] ?></td>
-                    <td><?= $row["secondary_id"] ?></td>
+                    <td><?= htmlspecialchars($row["famID"]) ?></td>
+                    <td><?= htmlspecialchars($row["first_name"]) ?></td>
+                    <td><?= htmlspecialchars($row["last_name"]) ?></td>
+                    <td><?= htmlspecialchars($row["date_of_birth"]) ?></td>
+                    <td><?= htmlspecialchars($row["social_security_number"]) ?></td>
+                    <td><?= htmlspecialchars($row["medical_card_number"]) ?></td>
+                    <td><?= htmlspecialchars($row["phone_number"]) ?></td>
+                    <td><?= htmlspecialchars($row["address"]) ?></td>
+                    <td><?= htmlspecialchars($row["city"]) ?></td>
+                    <td><?= htmlspecialchars($row["province"]) ?></td>
+                    <td><?= htmlspecialchars($row["postal_code"]) ?></td>
+                    <td><?= htmlspecialchars($row["email_address"]) ?></td>
+                    <td><?= htmlspecialchars($row["location_id"]) ?></td>
+                    <td><?= htmlspecialchars($row["secondary_id"]) ?></td>
                     <td>
                         <a href="./delete.php?famID=<?= $row["famID"] ?>">Delete</a>
                         <a href="./edit.php?famID=<?= $row["famID"] ?>">Edit</a>
-                        <!-- If you have a show.php or similar page, link it here -->
                         <a href="./show.php?famID=<?= $row["famID"] ?>">Show</a>
+                        <!-- Link to manage secondary family members -->
+                        <a href="../secondary_family_member/index.php?famID=<?= $row["famID"] ?>">Manage Secondary Family Members</a>
+                        <!-- Direct link to add a new secondary family member -->
+                        <a href="../secondary_family_member/create.php?famID=<?= $row["famID"] ?>">Add Secondary Family Member</a>
                     </td>
                 </tr>
             <?php } ?>
