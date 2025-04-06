@@ -43,15 +43,18 @@ if (isset($_GET['EmployeeID'])) {
                     <td><?= $row["start_date"] ?></td>
                     <td><?= $row["end_date"] ?></td>
                     <td>
-                        <a href="./delete.php?ContractID=<?= $row["ContractID"] ?>">Delete</a>
-                        <a href="./edit.php?ContractID=<?= $row["ContractID"] ?>">Edit</a>
+                        <a href="../Employee_history/delete.php?ContractID=<?= $row["ContractID"] ?>">Delete</a>
+                        <a href="../Employee_history/edit.php?ContractID=<?= $row["ContractID"] ?>">Edit</a>
+
                     </td>
                 </tr>
             <?php } ?>
         </tbody>
     </table>
 
-    <a href="./create.php">Add a date</a>
+    <a href="/warmupproject/Employee_history/create.php?EmployeeID=<?= $_GET['EmployeeID'] ?>">Add a date</a>
+
+
 </body>
 
 </html>

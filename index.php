@@ -14,6 +14,18 @@
     <p>Choose one of the following links: </p>
     <a href="./location/">Location</a><br>
     <a href="./employee/">Employee</a><br>
+    <a href="./Family_member/">Family Member</a><br>
+    <a href="./club_member/">Club Members</a><br>
+    <a href="./player/">Players</a><br>
+    <a href="./team/">Team</a><br>
+    <a href="./formation/">Formation</a><br>
+    <a href="./email_log/">Email Log</a><br>
+    <a href="./payment/">payment Log</a><br>
+
+
+
+
+
 
 
 </body>
